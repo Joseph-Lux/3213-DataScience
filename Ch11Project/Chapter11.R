@@ -134,6 +134,39 @@ font_import(pattern = "[X/x]kcd", prompt = FALSE)
 loadfonts()
 beatles_plot + theme_xkcd()
 
+###################################
+#
+# 11.6 Examples
+#
+###################################
 
+#Start of Exercise 11.1
+library(macleish)
+annotations <- bind_rows(
+  #Vernal Equinox
+  data.frame(x = as.POSIXlt(2015-03-20, tz = "", origin = "2015-04-20"), y = -5,
+             label = paste("Vernal Equinox: March 20, 2015"), adj = 0),
+  #Autumnal Equinox
+  data.frame(x = as.POSIXlt(2015-09-23, tz = "", origin = "2015-04-20"), y = -8,
+             label = paste("Autumnal Equinox: September 23, 2015"), adj = 0),
+  #Summer Solstice
+  data.frame(x = as.POSIXlt(2015-06-21, tz = "", origin = "2015-04-20"), y = -11,
+             label = paste("Summer Solstice: June 21, 2015"), adj = 0),
+  #Winter Solstice
+  data.frame(x = as.POSIXlt(2015-12-21, tz = "", origin = "2015-04-20"), y = -14,
+             label = paste("Winter Solstice: December 21, 2015"), adj = 0)
+  
+)
 
+temperatureGraph <- ggplot(data = whately_2015, aes(x = when, y = temperature)) + geom_point() + xlab("Date/Time") + ylab("Temperature")
+temperatureGraph <- temperatureGraph + geom_text(data = annotations, aes(x = x, y = y, label = label), hjust = "left", size = 3)
+temperatureGraph
 
+#End of Exercise 11.1
+
+#Start of Exercise 11.3
+
+#Converting to plotly messes with the annotations for some reason
+ggplotly(temperatureGraph)
+
+#End of Exercise 11.3
