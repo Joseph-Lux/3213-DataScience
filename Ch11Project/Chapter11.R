@@ -134,6 +134,23 @@ font_import(pattern = "[X/x]kcd", prompt = FALSE)
 loadfonts()
 beatles_plot + theme_xkcd()
 
+###################################
+#
+# 11.6 Examples
+#
+###################################
+
+#Start of Exercise 11.1
+library(macleish)
+temperatureGraph <- ggplot(data = whately_2015, aes(x = when, y = temperature)) + geom_point() + xlab("Date/Time") + ylab("Temperature")
+temperatureGraph <- temperatureGraph + annotate("text", y = 25, label = "Vernal Equinox: March 20, 2015")
+temperatureGraph
+
+#End of Exercise 11.1
+
+#Start of Exercise 11.3
+ggplotly(temperatureGraph)
+
 
 
 
