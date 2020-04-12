@@ -146,24 +146,26 @@ beatles_plot + theme_xkcd()
 
 #Start of Exercise 11.1
 library(macleish)
+library(lubridate)
 annotations <- bind_rows(
   #Vernal Equinox
-  data.frame(x = as.POSIXlt(2015-03-20, tz = "", origin = "2015-04-20"), y = -5,
+  data.frame(x = ymd("2015-03-20", tz="utc"), y = -5,
              label = paste("Vernal Equinox: March 20, 2015"), adj = 0),
   #Autumnal Equinox
-  data.frame(x = as.POSIXlt(2015-09-23, tz = "", origin = "2015-04-20"), y = -8,
+  data.frame(x = ymd("2015-09-23", tz="utc"), y = -8,
              label = paste("Autumnal Equinox: September 23, 2015"), adj = 0),
   #Summer Solstice
-  data.frame(x = as.POSIXlt(2015-06-21, tz = "", origin = "2015-04-20"), y = -11,
+  data.frame(x = ymd("(2015-06-21", tz="utc"), y = -11,
              label = paste("Summer Solstice: June 21, 2015"), adj = 0),
   #Winter Solstice
-  data.frame(x = as.POSIXlt(2015-12-21, tz = "", origin = "2015-04-20"), y = -14,
+  data.frame(x = ymd("2015-12-21", tz="utc"), y = -14,
              label = paste("Winter Solstice: December 21, 2015"), adj = 0)
   
 )
 
-temperatureGraph <- ggplot(data = whately_2015, aes(x = when, y = temperature)) + geom_point() + xlab("Date/Time") + ylab("Temperature")
-temperatureGraph <- temperatureGraph + geom_text(data = annotations, aes(x = x, y = y, label = label), hjust = "left", size = 3)
+# I switched from using geom_point to geom_smooth b/c the former was lagging my computer
+temperatureGraph <- ggplot(data = whately_2015, aes(x = when, y = temperature)) + geom_smooth(color="grey") + xlab("Date/Time") + ylab("Temperature")
+temperatureGraph <- temperatureGraph + geom_text(data = annotations, aes(x = x, y = y, label = label), hjust = "right", size = 3)
 temperatureGraph
 
 #End of Exercise 11.1
