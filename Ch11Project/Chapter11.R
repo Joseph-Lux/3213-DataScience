@@ -40,7 +40,7 @@ Beatles %>%
 # steamgraphs example
 ####################
 
-# devtools::install_github("hrbrmstr/streamgraph")
+#devtools::install_github("hrbrmstr/streamgraph")
 library(streamgraph)
 Beatles %>% streamgraph(key = "name", value = "n", date = "year") %>%
   sg_fill_brewer("Accent")
@@ -52,11 +52,10 @@ Beatles %>% streamgraph(key = "name", value = "n", date = "year") %>%
 #
 #############################################
 
-John <- filter(Beatles, name == "John")
+John <- filter(Beatles, name == "John") %>%
+  as.data.frame() # This cast is needed. The format() function only works with data frames, not tibbles.
 glimpse(John)
 
-# Something wrong with this function, presumably with the 
-# format() function which causes it not to display correctly
 all_values <- function(x){
   if (is.null(x)) return(NULL)
   row <- John[John$year == x$year, ]
@@ -69,8 +68,6 @@ John %>%
   layer_points() %>%
   add_tooltip(all_values, "hover")
 
-
-
 #############################################
 #
 # 11.3 Interactive Web apps with Shiny
@@ -78,7 +75,7 @@ John %>%
 #############################################
 
 library(shiny)
-runApp('/Users/josephlux/Documents/School/DataScience')
+runApp('C:\\code\\open_source\\3213-DataScience\\Ch11Project')
 
 #############################################
 #
@@ -128,9 +125,16 @@ beatles_plot + theme_fivethirtyeight()
 beatles_plot + theme_excel()
 
 # Using file path for MacOS
+# Windows users can skip this line. It's easier to just directly download the font.
 download.file("http://simonsoftware.se/other/xkcd.ttf",
               dest = "~/Library/Fonts/xkcd.ttf", mode = "wb")
+
+# Run this line for MacOS / linus
 font_import(pattern = "[X/x]kcd", prompt = FALSE)
+
+# Run this line for Windows. The path will need to be changed to work on your computer.
+font_import(path="C:\\Users\\InsertYourUsername\\AppData\\Local\\Microsoft\\Windows\\Fonts", pattern = "[X/x]kcd", prompt = FALSE)
+
 loadfonts()
 beatles_plot + theme_xkcd()
 
