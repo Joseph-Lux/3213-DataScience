@@ -149,22 +149,22 @@ library(macleish)
 library(lubridate)
 annotations <- bind_rows(
   #Vernal Equinox
-  data.frame(x = ymd("2015-03-20", tz="utc"), y = -5,
-             label = paste("Vernal Equinox: March 20, 2015"), adj = 0),
+  data.frame(x = ymd("2015-03-20", tz="utc"), y = -2,
+             label = paste("Vernal Equinox:\nMarch 20, 2015"), adj = 0),
   #Autumnal Equinox
-  data.frame(x = ymd("2015-09-23", tz="utc"), y = -8,
-             label = paste("Autumnal Equinox: September 23, 2015"), adj = 0),
+  data.frame(x = ymd("2015-09-23", tz="utc"), y = 19,
+             label = paste("Autumnal Equinox:\nSeptember 23, 2015"), adj = 0),
   #Summer Solstice
-  data.frame(x = ymd("(2015-06-21", tz="utc"), y = -11,
-             label = paste("Summer Solstice: June 21, 2015"), adj = 0),
+  data.frame(x = ymd("(2015-06-21", tz="utc"), y = 15,
+             label = paste("Summer Solstice:\nJune 21, 2015"), adj = 0),
   #Winter Solstice
-  data.frame(x = ymd("2015-12-21", tz="utc"), y = -14,
-             label = paste("Winter Solstice: December 21, 2015"), adj = 0)
+  data.frame(x = ymd("2015-12-21", tz="utc"), y = 5,
+             label = paste("Winter Solstice:\nDecember 21, 2015"), adj = 0)
   
 )
 
 # I switched from using geom_point to geom_smooth b/c the former was lagging my computer
-temperatureGraph <- ggplot(data = whately_2015, aes(x = when, y = temperature)) + geom_smooth(color="grey") + xlab("Date/Time") + ylab("Temperature")
+temperatureGraph <- ggplot(data = whately_2015, aes(x = when, y = temperature)) + geom_smooth(color="grey") + xlab("Date/Time") + ylab("Temperature (°C)")
 temperatureGraph <- temperatureGraph + geom_text(data = annotations, aes(x = x, y = y, label = label), hjust = "right", size = 3)
 temperatureGraph
 
